@@ -778,7 +778,7 @@ export default function ProfessionalCheckout() {
                 <div className="space-y-3 md:space-y-4">
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex items-center space-x-3 space-x-reverse">
-                      <Image
+                      <img
                         src={item.image || "/placeholder.svg"}
                         alt={item.name}
                         width={50}

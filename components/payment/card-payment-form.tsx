@@ -10,7 +10,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Shield, CreditCard, Calendar, Lock, AlertCircle, Building2 } from "lucide-react"
 import { omanPaymentGateways } from "@/lib/payment-gateways"
-import Image from "next/image"
 
 interface CardPaymentFormProps {
   onSubmit: (paymentData: any) => void

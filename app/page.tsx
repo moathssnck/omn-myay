@@ -855,7 +855,7 @@ export default function ProfessionalWaterStore() {
                   className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-0 shadow-lg"
                 >
                   <div className="relative overflow-hidden">
-                    <Image
+                    <img
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       width={400}
