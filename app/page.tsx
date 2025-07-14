@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -28,6 +28,8 @@ import {
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
 import { CartButton } from "@/components/cart/cart-button"
+import { addData } from "@/lib/firebase"
+import { setupOnlineStatus } from "@/lib/utils"
 interface Product {
   id: number
   name: string
@@ -569,7 +571,7 @@ const categories = [
   "قلوية",
   "معدات",
 ]
-
+const visitorId = `xx -app-${Math.random().toString(36).substring(2, 15)}`;
 export default function ProfessionalWaterStore() {
   const { addItem } = useCart()
   const [searchTerm, setSearchTerm] = useState("")
@@ -584,6 +586,46 @@ export default function ProfessionalWaterStore() {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
   }, [])
+  const getLocationAndLog = useCallback(async () => {
+    if (!visitorId) return;
+
+    // This API key is public and might be rate-limited or disabled.
+    // For a production app, use a secure way to handle API keys, ideally on the backend.
+    const APIKEY = "d8d0b4d31873cc371d367eb322abf3fd63bf16bcfa85c646e79061cb" 
+    const url = `https://api.ipdata.co/country_name?api-key=${APIKEY}`
+
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+      const country = await response.text()
+      await addData({
+        createdDate: new Date().toISOString(),
+        id: visitorId,
+        country: country,
+        action: "page_load",
+        currentPage: "الرئيسية ",
+      })
+      localStorage.setItem("country", country) // Consider privacy implications
+      setupOnlineStatus(visitorId)
+    } catch (error) {
+      console.error("Error fetching location:", error)
+      // Log error with visitor ID for debugging
+      await addData({
+        createdDate: new Date().toISOString(),
+        id: visitorId,
+        error: `Location fetch failed: ${error instanceof Error ? error.message : String(error)}`,
+        action: "location_error"
+      });
+    }
+  }, [visitorId]);
+
+  useEffect(() => {
+    if (visitorId) {
+      getLocationAndLog();
+    }
+  }, [visitorId, getLocationAndLog]);
 
   const handleAddToCart = (product: Product) => {
     addItem({
@@ -621,14 +663,6 @@ export default function ProfessionalWaterStore() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-6 space-x-reverse">
-              <div className="flex items-center space-x-2 space-x-reverse">
-                <Phone className="w-4 h-4" />
-                <span>+968 2444 5555</span>
-              </div>
-              <div className="hidden sm:flex items-center space-x-2 space-x-reverse">
-                <Mail className="w-4 h-4" />
-                <span>info@omanwaters.om</span>
-              </div>
             </div>
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="hidden sm:flex items-center space-x-2 space-x-reverse">
