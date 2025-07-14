@@ -384,7 +384,7 @@ export default function CartPage() {
               {suggestedProducts.map((product) => (
                 <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300">
                   <div className="relative overflow-hidden">
-                    <Image
+                    <img
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       width={300}

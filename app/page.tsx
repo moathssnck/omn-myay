@@ -25,7 +25,6 @@ import {
   Menu,
   X,
 } from "lucide-react"
-import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
 import { CartButton } from "@/components/cart/cart-button"
 import { addData } from "@/lib/firebase"
