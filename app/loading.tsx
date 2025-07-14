@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import {
-  ShoppingCart,
   Plus,
   Star,
   Truck,
@@ -23,11 +22,12 @@ import {
   Droplets,
   Leaf,
   Zap,
+  Menu,
+  X,
 } from "lucide-react"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
-import { CartSidebar } from "@/components/cart/cart-sidebar"
-
+import { CartButton } from "@/components/cart/cart-button"
 interface Product {
   id: number
   name: string
@@ -54,33 +54,14 @@ interface Product {
 
 // Update the products array with the new comprehensive product list
 const products: Product[] = [
-  // 200ml Products
-  {
-    id: 1,
-    name: "عبوة مياه طبيعية 200 مل",
-    nameEn: "Natural Water 200ml",
-    price: 0.08,
-    originalPrice: 0.1,
-    image: "/placeholder.svg?height=400&width=400&text=200ml+Bottle",
-    description: "عبوة صغيرة مثالية للأطفال والرحلات القصيرة",
-    detailedDescription:
-      "عبوة مياه طبيعية نقية بحجم 200 مل، مثالية للأطفال والاستخدام اليومي. معبأة بأحدث التقنيات للحفاظ على النقاء والطعم الطبيعي.",
-    rating: 4.8,
-    reviews: 856,
-    badge: "مناسب للأطفال",
-    size: "200 مل",
-    category: "عبوات صغيرة",
-    inStock: 1000,
-    features: ["حجم مناسب للأطفال", "سهل الحمل", "طبيعية 100%", "معتمدة صحياً"],
-    nutritionFacts: { ph: "7.2", minerals: "120 mg/L", sodium: "< 3 mg/L", calcium: "35 mg/L" },
-  },
+
   {
     id: 2,
     name: "حزمة مياه طبيعية 30 × 200 مل",
     nameEn: "Natural Water Pack 30 × 200ml",
     price: 2.2,
     originalPrice: 2.8,
-    image: "/placeholder.svg?height=400&width=400&text=30x200ml+Pack",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "حزمة اقتصادية تحتوي على 30 عبوة 200 مل",
     detailedDescription:
       "حزمة اقتصادية مثالية للعائلات والمكاتب، تحتوي على 30 عبوة من المياه الطبيعية النقية بحجم 200 مل لكل عبوة.",
@@ -101,7 +82,7 @@ const products: Product[] = [
     nameEn: "Natural Water 330ml",
     price: 0.12,
     originalPrice: 0.15,
-    image: "/placeholder.svg?height=400&width=400&text=330ml+Bottle",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "الحجم المثالي للاستخدام اليومي والوجبات",
     detailedDescription:
       "عبوة مياه طبيعية بحجم 330 مل، الحجم المثالي لمرافقة الوجبات والاستخدام اليومي في المكتب أو المدرسة.",
@@ -120,7 +101,7 @@ const products: Product[] = [
     nameEn: "Natural Water Carton 24 × 330ml",
     price: 2.8,
     originalPrice: 3.5,
-    image: "/placeholder.svg?height=400&width=400&text=24x330ml+Carton",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "كرتون كامل يحتوي على 24 عبوة 330 مل",
     detailedDescription:
       "كرتون كامل يحتوي على 24 عبوة من المياه الطبيعية بحجم 330 مل، مثالي للمكاتب والمناسبات والاستخدام المنزلي.",
@@ -139,7 +120,7 @@ const products: Product[] = [
     nameEn: "Natural Water Pack 12 × 330ml",
     price: 1.4,
     originalPrice: 1.8,
-    image: "/placeholder.svg?height=400&width=400&text=12x330ml+Pack",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "حزمة متوسطة تحتوي على 12 عبوة 330 مل",
     detailedDescription:
       "حزمة متوسطة الحجم تحتوي على 12 عبوة من المياه الطبيعية بحجم 330 مل، مناسبة للعائلات الصغيرة والاستخدام الأسبوعي.",
@@ -159,7 +140,7 @@ const products: Product[] = [
     nameEn: "Natural Water 500ml",
     price: 0.15,
     originalPrice: 0.2,
-    image: "/placeholder.svg?height=400&width=400&text=500ml+Bottle",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "الحجم الكلاسيكي المناسب لجميع الأوقات",
     detailedDescription:
       "عبوة مياه طبيعية بحجم 500 مل، الحجم الكلاسيكي والأكثر شعبية، مناسب للرياضة والعمل والاستخدام اليومي.",
@@ -178,7 +159,7 @@ const products: Product[] = [
     nameEn: "Natural Water Carton 24 × 500ml",
     price: 3.5,
     originalPrice: 4.2,
-    image: "/placeholder.svg?height=400&width=400&text=24x500ml+Carton",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "كرتون كامل يحتوي على 24 عبوة 500 مل",
     detailedDescription:
       "كرتون كامل يحتوي على 24 عبوة من المياه الطبيعية بحجم 500 مل، الخيار الأمثل للمكاتب والمناسبات الكبيرة.",
@@ -197,7 +178,7 @@ const products: Product[] = [
     nameEn: "Natural Water Pack 12 × 500ml",
     price: 1.8,
     originalPrice: 2.2,
-    image: "/placeholder.svg?height=400&width=400&text=12x500ml+Pack",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "حزمة عملية تحتوي على 12 عبوة 500 مل",
     detailedDescription:
       "حزمة عملية تحتوي على 12 عبوة من المياه الطبيعية بحجم 500 مل، مثالية للاستخدام المنزلي والرحلات القصيرة.",
@@ -217,7 +198,7 @@ const products: Product[] = [
     nameEn: "Natural Water 1.5L",
     price: 0.35,
     originalPrice: 0.45,
-    image: "/placeholder.svg?height=400&width=400&text=1.5L+Bottle",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "عبوة كبيرة مثالية للعائلات والاستخدام المنزلي",
     detailedDescription:
       "عبوة مياه طبيعية بحجم 1.5 لتر، مثالية للاستخدام المنزلي والعائلي، توفر كمية كافية لعدة أشخاص.",
@@ -236,7 +217,7 @@ const products: Product[] = [
     nameEn: "Natural Water Carton 12 × 1.5L",
     price: 4.0,
     originalPrice: 5.0,
-    image: "/placeholder.svg?height=400&width=400&text=12x1.5L+Carton",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "كرتون يحتوي على 12 عبوة 1.5 لتر",
     detailedDescription:
       "كرتون يحتوي على 12 عبوة من المياه الطبيعية بحجم 1.5 لتر لكل عبوة، مثالي للعائلات الكبيرة والاستخدام الشهري.",
@@ -255,7 +236,7 @@ const products: Product[] = [
     nameEn: "Natural Water Pack 6 × 1.5L",
     price: 2.1,
     originalPrice: 2.6,
-    image: "/placeholder.svg?height=400&width=400&text=6x1.5L+Pack",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "حزمة تحتوي على 6 عبوات 1.5 لتر",
     detailedDescription:
       "حزمة تحتوي على 6 عبوات من المياه الطبيعية بحجم 1.5 لتر، مناسبة للاستخدام الأسبوعي للعائلات المتوسطة.",
@@ -275,7 +256,7 @@ const products: Product[] = [
     nameEn: "Natural Water 2L",
     price: 0.45,
     originalPrice: 0.55,
-    image: "/placeholder.svg?height=400&width=400&text=2L+Bottle",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "عبوة كبيرة مثالية للاستخدام المنزلي اليومي",
     detailedDescription:
       "عبوة مياه طبيعية بحجم 2 لتر، مثالية للاستخدام المنزلي اليومي، توفر كمية كافية لعائلة صغيرة ليوم كامل.",
@@ -294,7 +275,7 @@ const products: Product[] = [
     nameEn: "Natural Water Pack 2 × 2L",
     price: 0.85,
     originalPrice: 1.0,
-    image: "/placeholder.svg?height=400&width=400&text=2x2L+Pack",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "حزمة تحتوي على عبوتين 2 لتر",
     detailedDescription:
       "حزمة اقتصادية تحتوي على عبوتين من المياه الطبيعية بحجم 2 لتر لكل عبوة، مثالية للاستخدام المنزلي.",
@@ -314,7 +295,7 @@ const products: Product[] = [
     nameEn: "Natural Water 5L",
     price: 1.2,
     originalPrice: 1.5,
-    image: "/placeholder.svg?height=400&width=400&text=5L+Bottle",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "عبوة كبيرة جداً للاستخدام المكثف",
     detailedDescription: "عبوة مياه طبيعية بحجم 5 لتر، مثالية للاستخدام المكثف في المكاتب والمنازل الكبيرة والمناسبات.",
     rating: 4.6,
@@ -332,7 +313,7 @@ const products: Product[] = [
     nameEn: "Natural Water Carton 4 × 5L",
     price: 4.5,
     originalPrice: 5.5,
-    image: "/placeholder.svg?height=400&width=400&text=4x5L+Carton",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "كرتون يحتوي على 4 عبوات 5 لتر",
     detailedDescription:
       "كرتون يحتوي على 4 عبوات من المياه الطبيعية بحجم 5 لتر لكل عبوة، مثالي للمكاتب الكبيرة والمناسبات.",
@@ -353,7 +334,7 @@ const products: Product[] = [
     nameEn: "5 Gallon Water Non-Returnable",
     price: 3.5,
     originalPrice: 4.0,
-    image: "/placeholder.svg?height=400&width=400&text=5+Gallon+Non-Returnable",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "عبوة 5 جالون للاستخدام الواحد",
     detailedDescription: "عبوة مياه طبيعية بحجم 5 جالون غير قابلة للاسترجاع، مثالية للاستخدام المؤقت أو لمرة واحدة.",
     rating: 4.5,
@@ -371,7 +352,7 @@ const products: Product[] = [
     nameEn: "5 Gallon Water Returnable",
     price: 2.5,
     originalPrice: 3.0,
-    image: "/placeholder.svg?height=400&width=400&text=5+Gallon+Returnable",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "عبوة 5 جالون قابلة للاسترجاع - خدمة منزلية فقط",
     detailedDescription:
       "عبوة مياه طبيعية بحجم 5 جالون قابلة للاسترجاع، متوفرة فقط من خلال خدمة التوصيل المنزلي مع إمكانية استبدال العبوة.",
@@ -392,7 +373,7 @@ const products: Product[] = [
     nameEn: "Zero Water 200ml",
     price: 0.12,
     originalPrice: 0.15,
-    image: "/placeholder.svg?height=400&width=400&text=Zero+200ml",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "مياه صفر خالية من السعرات والسكر",
     detailedDescription: "مياه صفر بحجم 200 مل، خالية تماماً من السعرات الحرارية والسكر، مثالية لمن يتبعون حمية غذائية.",
     rating: 4.6,
@@ -410,7 +391,7 @@ const products: Product[] = [
     nameEn: "Zero Water Carton 24 × 200ml",
     price: 2.8,
     originalPrice: 3.5,
-    image: "/placeholder.svg?height=400&width=400&text=24x200ml+Zero+Carton",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "كرتون مياه صفر 24 عبوة 200 مل",
     detailedDescription:
       "كرتون يحتوي على 24 عبوة من مياه صفر بحجم 200 مل، مثالي لمن يريدون كمية كبيرة من المياه الصحية.",
@@ -429,7 +410,7 @@ const products: Product[] = [
     nameEn: "Zero Water 500ml",
     price: 0.18,
     originalPrice: 0.22,
-    image: "/placeholder.svg?height=400&width=400&text=Zero+500ml",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "مياه صفر بالحجم الكلاسيكي 500 مل",
     detailedDescription: "مياه صفر بحجم 500 مل، الحجم الكلاسيكي خالي من السعرات والسكر، مثالي للرياضيين ومتبعي الحمية.",
     rating: 4.8,
@@ -447,7 +428,7 @@ const products: Product[] = [
     nameEn: "Zero Water Pack 12 × 500ml",
     price: 2.1,
     originalPrice: 2.6,
-    image: "/placeholder.svg?height=400&width=400&text=12x500ml+Zero+Pack",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "حزمة مياه صفر 12 عبوة 500 مل",
     detailedDescription: "حزمة تحتوي على 12 عبوة من مياه صفر بحجم 500 مل، مثالية للاستخدام الأسبوعي للأشخاص النشطين.",
     rating: 4.7,
@@ -464,7 +445,7 @@ const products: Product[] = [
     nameEn: "Zero Water 1.5L",
     price: 0.42,
     originalPrice: 0.52,
-    image: "/placeholder.svg?height=400&width=400&text=Zero+1.5L",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "مياه صفر بحجم عائلي 1.5 لتر",
     detailedDescription: "مياه صفر بحجم 1.5 لتر، مثالية للعائلات التي تتبع نمط حياة صحي، خالية من السعرات والسكر.",
     rating: 4.6,
@@ -482,7 +463,7 @@ const products: Product[] = [
     nameEn: "Zero Water Pack 6 × 1.5L",
     price: 2.4,
     originalPrice: 3.0,
-    image: "/placeholder.svg?height=400&width=400&text=6x1.5L+Zero+Pack",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
     description: "حزمة مياه صفر 6 عبوات 1.5 لتر",
     detailedDescription: "حزمة تحتوي على 6 عبوات من مياه صفر بحجم 1.5 لتر، مثالية للعائلات الصحية والاستخدام الأسبوعي.",
     rating: 4.8,
@@ -499,7 +480,7 @@ const products: Product[] = [
     nameEn: "Zero Water 5 Gallon Returnable",
     price: 3.0,
     originalPrice: 3.5,
-    image: "/placeholder.svg?height=400&width=400&text=Zero+5+Gallon",
+    image: "https://omanoasis.com/wp-content/uploads/2024/11/5G-nrb.png",
     description: "مياه صفر 5 جالون قابلة للاسترجاع - توصيل منزلي",
     detailedDescription:
       "مياه صفر بحجم 5 جالون قابلة للاسترجاع، متوفرة فقط من خلال خدمة التوصيل المنزلي، خالية من السعرات.",
@@ -513,45 +494,7 @@ const products: Product[] = [
     nutritionFacts: { ph: "7.0", minerals: "0 mg/L", sodium: "0 mg/L", calcium: "0 mg/L" },
   },
 
-  // Alkaline Products
-  {
-    id: 25,
-    name: "مياه قلوية (الكالين) 500 مل",
-    nameEn: "Alkaline Water 500ml",
-    price: 0.48,
-    originalPrice: 0.6,
-    image: "/placeholder.svg?height=400&width=400&text=Alkaline+500ml",
-    description: "مياه قلوية متوازنة الحموضة للصحة المثلى",
-    detailedDescription:
-      "مياه قلوية بحجم 500 مل مع pH متوازن، غنية بالإلكتروليت الطبيعي، تساعد في توازن حموضة الجسم وتعزز الطاقة.",
-    rating: 4.7,
-    reviews: 654,
-    badge: "صحي متقدم",
-    size: "500 مل",
-    category: "قلوية",
-    inStock: 300,
-    features: ["pH متوازن", "إلكتروليت طبيعي", "مضادات أكسدة", "طاقة طبيعية"],
-    nutritionFacts: { ph: "8.5", minerals: "180 mg/L", sodium: "8 mg/L", calcium: "52 mg/L" },
-  },
-  {
-    id: 26,
-    name: "حزمة مياه قلوية 12 × 500 مل",
-    nameEn: "Alkaline Water Pack 12 × 500ml",
-    price: 5.5,
-    originalPrice: 6.8,
-    image: "/placeholder.svg?height=400&width=400&text=12x500ml+Alkaline",
-    description: "حزمة مياه قلوية 12 عبوة 500 مل",
-    detailedDescription:
-      "حزمة تحتوي على 12 عبوة من المياه القلوية بحجم 500 مل، مثالية للأشخاص الذين يتبعون نمط حياة صحي متقدم.",
-    rating: 4.8,
-    reviews: 432,
-    badge: "نمط حياة صحي",
-    size: "12 × 500 مل",
-    category: "قلوية",
-    inStock: 150,
-    features: ["توفير صحي", "pH متوازن", "مناسب للرياضيين", "جودة ممتازة"],
-    nutritionFacts: { ph: "8.5", minerals: "180 mg/L", sodium: "8 mg/L", calcium: "52 mg/L" },
-  },
+ 
 
   // Equipment Products
   {
@@ -560,7 +503,7 @@ const products: Product[] = [
     nameEn: "Manual Water Pump with 5 Gallon",
     price: 8.5,
     originalPrice: 10.0,
-    image: "/placeholder.svg?height=400&width=400&text=Manual+Pump+5+Gallon",
+    image: "https://omanoasis.com/wp-content/uploads/2024/11/5gallon.png",
     description: "مضخة يدوية مع عبوة 5 جالون - توصيل منزلي فقط",
     detailedDescription:
       "مضخة مياه يدوية عالية الجودة مع عبوة مياه 5 جالون قابلة للاسترجاع، متوفرة فقط من خلال خدمة التوصيل المنزلي.",
@@ -579,7 +522,7 @@ const products: Product[] = [
     nameEn: "Clear Tap Dispenser with 5 Gallon",
     price: 12.0,
     originalPrice: 15.0,
-    image: "/placeholder.svg?height=400&width=400&text=Clear+Tap+Dispenser",
+    image: "https://omanoasis.com/wp-content/uploads/2024/11/Bottle_Dispencer-2.png",
     description: "موزع صنبور شفاف مع عبوة 5 جالون - توصيل منزلي فقط",
     detailedDescription:
       "موزع مياه بصنبور شفاف عالي الجودة مع عبوة مياه 5 جالون، تصميم أنيق وعملي، متوفر فقط من خلال التوصيل المنزلي.",
@@ -598,7 +541,7 @@ const products: Product[] = [
     nameEn: "Hot & Cold Water Dispenser with 5 Gallon",
     price: 45.0,
     originalPrice: 55.0,
-    image: "/placeholder.svg?height=400&width=400&text=Hot+Cold+Dispenser",
+    image: "https://omanoasis.com/wp-content/uploads/2024/11/Big-Dispencer-copy-1-2.png",
     description: "موزع مياه ساخن وبارد مع عبوة 5 جالون - توصيل منزلي فقط",
     detailedDescription:
       "موزع مياه كهربائي متطور يوفر المياه الساخنة والباردة مع عبوة مياه 5 جالون، مثالي للمكاتب والمنازل، متوفر فقط من خلال التوصيل المنزلي.",
@@ -628,13 +571,14 @@ const categories = [
 ]
 
 export default function ProfessionalWaterStore() {
-  const { addItem, toggleCart, getTotalItems, isOpen } = useCart()
+  const { addItem } = useCart()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("الكل")
   const [favorites, setFavorites] = useState<number[]>([])
   const [currentTime, setCurrentTime] = useState(new Date())
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
@@ -681,24 +625,24 @@ export default function ProfessionalWaterStore() {
                 <Phone className="w-4 h-4" />
                 <span>+968 2444 5555</span>
               </div>
-              <div className="flex items-center space-x-2 space-x-reverse">
+              <div className="hidden sm:flex items-center space-x-2 space-x-reverse">
                 <Mail className="w-4 h-4" />
                 <span>info@omanwaters.om</span>
               </div>
             </div>
             <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="flex items-center space-x-2 space-x-reverse">
+              <div className="hidden sm:flex items-center space-x-2 space-x-reverse">
                 <Clock className="w-4 h-4" />
                 <span>{currentTime.toLocaleTimeString("ar-OM")}</span>
               </div>
-              <span>توصيل مجاني للطلبات أكثر من 5 ر.ع</span>
+              <span className="text-xs sm:text-sm">توصيل مجاني للطلبات أكثر من 5 ر.ع</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Header */}
-      <header className="bg-white shadow-lg border-b-2 border-blue-100 sticky top-0 z-50">
+      <header className="bg-white shadow-lg border-b-2 border-blue-100 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             <div className="flex items-center space-x-4 space-x-reverse">
@@ -716,6 +660,16 @@ export default function ProfessionalWaterStore() {
             </div>
 
             <div className="flex items-center space-x-3 space-x-reverse md:space-x-6">
+              {/* Mobile Menu Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="md:hidden"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </Button>
+
               {/* Mobile Search Toggle */}
               <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
                 <Search className="w-5 h-5" />
@@ -732,21 +686,7 @@ export default function ProfessionalWaterStore() {
                 />
               </div>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={toggleCart}
-                className="relative border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50 px-2 md:px-4 bg-transparent"
-              >
-                <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 ml-1 md:ml-2" />
-                <span className="hidden sm:inline">السلة</span>
-                <span className="sm:hidden">({getTotalItems()})</span>
-                {getTotalItems() > 0 && (
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 md:h-6 md:w-6 rounded-full p-0 flex items-center justify-center text-xs bg-gradient-to-r from-orange-500 to-red-500">
-                    {getTotalItems()}
-                  </Badge>
-                )}
-              </Button>
+              <CartButton />
             </div>
           </div>
 
@@ -761,6 +701,26 @@ export default function ProfessionalWaterStore() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pr-10 border-2 border-gray-200 focus:border-blue-500"
                 />
+              </div>
+            </div>
+          )}
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-gray-100 py-4">
+              <div className="space-y-2">
+                <Button variant="ghost" className="w-full justify-start">
+                  <Phone className="w-4 h-4 ml-2" />
+                  اتصل بنا
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <Mail className="w-4 h-4 ml-2" />
+                  راسلنا
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <MapPin className="w-4 h-4 ml-2" />
+                  مواقعنا
+                </Button>
               </div>
             </div>
           )}
@@ -879,9 +839,6 @@ export default function ProfessionalWaterStore() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Cart Sidebar */}
-            <CartSidebar />
           </div>
 
           {/* Products Grid */}
@@ -898,7 +855,7 @@ export default function ProfessionalWaterStore() {
                   className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-0 shadow-lg"
                 >
                   <div className="relative overflow-hidden">
-                    <img
+                    <Image
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       width={400}

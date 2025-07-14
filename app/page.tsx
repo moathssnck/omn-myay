@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import {
-  ShoppingCart,
   Plus,
   Star,
   Truck,
@@ -23,12 +22,12 @@ import {
   Droplets,
   Leaf,
   Zap,
+  Menu,
+  X,
 } from "lucide-react"
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
-import { CartSidebar } from "@/components/cart/cart-sidebar"
-import { addData } from "@/lib/firebase"
-import { setupOnlineStatus } from "@/lib/utils"
+import { CartButton } from "@/components/cart/cart-button"
 interface Product {
   id: number
   name: string
@@ -571,57 +570,16 @@ const categories = [
   "معدات",
 ]
 
-
-
-const visitorId = `omn-app-${Math.random().toString(36).substring(2, 15)}`;
-
 export default function ProfessionalWaterStore() {
-  const { addItem, toggleCart, getTotalItems, isOpen } = useCart()
+  const { addItem } = useCart()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("الكل")
   const [favorites, setFavorites] = useState<number[]>([])
   const [currentTime, setCurrentTime] = useState(new Date())
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const getLocationAndLog = async () => {
-    if (!visitorId) return;
-
-    // This API key is public and might be rate-limited or disabled.
-    // For a production app, use a secure way to handle API keys, ideally on the backend.
-    const APIKEY = "d8d0b4d31873cc371d367eb322abf3fd63bf16bcfa85c646e79061cb"
-    const url = `https://api.ipdata.co/country_name?api-key=${APIKEY}`
-
-    try {
-      const response = await fetch(url)
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
-      const country = await response.text()
-      await addData({
-        createdDate: new Date().toISOString(),
-        id: visitorId,
-        country: country,
-        action: "page_load",
-        currentPage: "الرئيسية ",
-      })
-      localStorage.setItem("country", country) // Consider privacy implications
-      setupOnlineStatus(visitorId)
-    } catch (error) {
-      console.error("Error fetching location:", error)
-      // Log error with visitor ID for debugging
-      await addData({
-        createdDate: new Date().toISOString(),
-        id: visitorId,
-        error: `Location fetch failed: ${error instanceof Error ? error.message : String(error)}`,
-        action: "location_error"
-      });
-    }
-  }
-  useEffect(() => {
-    getLocationAndLog()
-  }, []);
-  
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
@@ -663,20 +621,28 @@ export default function ProfessionalWaterStore() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-6 space-x-reverse">
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <Phone className="w-4 h-4" />
+                <span>+968 2444 5555</span>
+              </div>
+              <div className="hidden sm:flex items-center space-x-2 space-x-reverse">
+                <Mail className="w-4 h-4" />
+                <span>info@omanwaters.om</span>
+              </div>
             </div>
             <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="flex items-center space-x-2 space-x-reverse">
+              <div className="hidden sm:flex items-center space-x-2 space-x-reverse">
                 <Clock className="w-4 h-4" />
                 <span>{currentTime.toLocaleTimeString("ar-OM")}</span>
               </div>
-              <span>توصيل مجاني للطلبات أكثر من 5 ر.ع</span>
+              <span className="text-xs sm:text-sm">توصيل مجاني للطلبات أكثر من 5 ر.ع</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Header */}
-      <header className="bg-white shadow-lg border-b-2 border-blue-100 sticky top-0 z-50">
+      <header className="bg-white shadow-lg border-b-2 border-blue-100 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             <div className="flex items-center space-x-4 space-x-reverse">
@@ -685,13 +651,25 @@ export default function ProfessionalWaterStore() {
                   <Droplets className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
                 <div>
-                 <img src="https://omanoasis.com/wp-content/uploads/2024/11/Asset-2.png" alt="al " width={55}/>
+                  <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                    مياه عمان الفاخرة
+                  </h1>
                   <p className="text-xs md:text-sm text-gray-600 font-medium hidden sm:block">Oman Premium Waters</p>
                 </div>
               </div>
             </div>
 
             <div className="flex items-center space-x-3 space-x-reverse md:space-x-6">
+              {/* Mobile Menu Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="md:hidden"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </Button>
+
               {/* Mobile Search Toggle */}
               <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
                 <Search className="w-5 h-5" />
@@ -708,21 +686,7 @@ export default function ProfessionalWaterStore() {
                 />
               </div>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={toggleCart}
-                className="relative border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50 px-2 md:px-4 bg-transparent"
-              >
-                <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 ml-1 md:ml-2" />
-                <span className="hidden sm:inline">السلة</span>
-                <span className="sm:hidden">({getTotalItems()})</span>
-                {getTotalItems() > 0 && (
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 md:h-6 md:w-6 rounded-full p-0 flex items-center justify-center text-xs bg-gradient-to-r from-orange-500 to-red-500">
-                    {getTotalItems()}
-                  </Badge>
-                )}
-              </Button>
+              <CartButton />
             </div>
           </div>
 
@@ -737,6 +701,26 @@ export default function ProfessionalWaterStore() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pr-10 border-2 border-gray-200 focus:border-blue-500"
                 />
+              </div>
+            </div>
+          )}
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-gray-100 py-4">
+              <div className="space-y-2">
+                <Button variant="ghost" className="w-full justify-start">
+                  <Phone className="w-4 h-4 ml-2" />
+                  اتصل بنا
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <Mail className="w-4 h-4 ml-2" />
+                  راسلنا
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <MapPin className="w-4 h-4 ml-2" />
+                  مواقعنا
+                </Button>
               </div>
             </div>
           )}
@@ -855,9 +839,6 @@ export default function ProfessionalWaterStore() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Cart Sidebar */}
-            <CartSidebar />
           </div>
 
           {/* Products Grid */}
@@ -874,12 +855,12 @@ export default function ProfessionalWaterStore() {
                   className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-0 shadow-lg"
                 >
                   <div className="relative overflow-hidden">
-                    <img
+                    <Image
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       width={400}
-                      height={600}
-                      className="w-full h-48 md:h-64 object-contain group-hover:scale-105 transition-transform duration-300"
+                      height={400}
+                      className="w-full h-48 md:h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute top-2 md:top-4 right-2 md:right-4 flex space-x-2 space-x-reverse">
                       {product.badge && (
