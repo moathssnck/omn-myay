@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
 import {
   ArrowRight,
   Truck,
@@ -664,7 +663,6 @@ export default function ProfessionalCheckout() {
                   <span className="text-sm font-medium text-blue-600">الخطوة {currentStep} من 5</span>
                   <span className="text-sm text-gray-500">{getStepTitle(currentStep)}</span>
                 </div>
-                <Progress value={(currentStep / 5) * 100} className="h-2" />
               </div>
 
               {/* Desktop Progress */}
@@ -702,7 +700,6 @@ export default function ProfessionalCheckout() {
                 ))}
               </div>
               <div className="hidden md:block">
-                <Progress value={(currentStep / 5) * 100} className="h-2" />
               </div>
             </div>
 
