@@ -288,14 +288,6 @@ export default function ProfessionalWaterStore() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-6 space-x-reverse">
-              <div className="flex items-center space-x-2 space-x-reverse">
-                <Phone className="w-4 h-4" />
-                <span>+968 2444 5555</span>
-              </div>
-              <div className="flex items-center space-x-2 space-x-reverse">
-                <Mail className="w-4 h-4" />
-                <span>info@omanwaters.om</span>
-              </div>
             </div>
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="flex items-center space-x-2 space-x-reverse">
