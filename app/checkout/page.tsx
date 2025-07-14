@@ -508,7 +508,7 @@ export default function ProfessionalCheckout() {
         return (
           <div className="space-y-6">
             {/* OTP Dialog */}
-            <Dialog open={paymentResult?.requiresOTP} onOpenChange={() => {}}>
+            <Dialog open={paymentResult?.requiresOTP} onOpenChange={() => { }}>
               <DialogContent className="sm:max-w-md" dir="rtl">
                 <DialogHeader>
                   <DialogTitle className="text-center text-xl font-bold">تحقق من هويتك</DialogTitle>
@@ -707,13 +707,12 @@ export default function ProfessionalCheckout() {
                 {[1, 2, 3, 4, 5].map((step) => (
                   <div key={step} className="flex items-center">
                     <div
-                      className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
-                        step < currentStep
+                      className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all ${step < currentStep
                           ? "bg-green-500 text-white"
                           : step === currentStep
                             ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg"
                             : "bg-gray-200 text-gray-600"
-                      }`}
+                        }`}
                     >
                       {step < currentStep ? <CheckCircle className="w-6 h-6" /> : step}
                     </div>
@@ -727,9 +726,8 @@ export default function ProfessionalCheckout() {
                     {step < 5 && (
                       <div className="w-16 h-1 bg-gray-200 mx-4 rounded">
                         <div
-                          className={`h-full rounded transition-all ${
-                            step < currentStep ? "bg-green-500 w-full" : "bg-gray-200 w-0"
-                          }`}
+                          className={`h-full rounded transition-all ${step < currentStep ? "bg-green-500 w-full" : "bg-gray-200 w-0"
+                            }`}
                         />
                       </div>
                     )}
