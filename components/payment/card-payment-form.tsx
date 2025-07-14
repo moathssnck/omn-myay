@@ -144,7 +144,7 @@ export function CardPaymentForm({ onSubmit, isProcessing }: CardPaymentFormProps
             اختر البنك
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-6">
+        <CardContent className="p-2">
           <RadioGroup value={selectedGateway} onValueChange={setSelectedGateway} className="space-y-4">
             {omanPaymentGateways.map((gateway) => (
               <div
@@ -161,21 +161,14 @@ export function CardPaymentForm({ onSubmit, isProcessing }: CardPaymentFormProps
                       <img
                         src={gateway.logo || "/placeholder.svg"}
                         alt={gateway.name}
-                        width={80}
+                        width={60}
                         height={30}
                         className="object-contain"
                       />
                       <div>
                         <p className="font-semibold text-lg">{gateway.nameAr}</p>
                         <div className="flex items-center space-x-2 space-x-reverse mt-1">
-                          {gateway.supportedCards.map((card) => (
-                            <div
-                              key={card}
-                              className={`w-8 h-5 ${getCardTypeColor(card)} rounded text-white text-xs flex items-center justify-center font-bold`}
-                            >
-                              {card.slice(0, 4).toUpperCase()}
-                            </div>
-                          ))}
+                         
                         </div>
                       </div>
                     </div>
@@ -212,7 +205,7 @@ export function CardPaymentForm({ onSubmit, isProcessing }: CardPaymentFormProps
                   id="cardNumber"
                   value={formData.cardNumber}
                   onChange={handleCardNumberChange}
-                  placeholder="1234 5678 9012 3456"
+                  placeholder="#### #### #### ####"
                   maxLength={19}
                   className={`pr-12 text-lg font-mono ${errors.cardNumber ? "border-red-500" : ""}`}
                 />

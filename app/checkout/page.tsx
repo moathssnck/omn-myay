@@ -374,11 +374,7 @@ export default function ProfessionalCheckout() {
                           <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                             <MapPin className="w-6 h-6 text-blue-600" />
                           </div>
-                          <div>
-                            <p className="font-semibold text-lg">استلام من المتجر</p>
-                            <p className="text-sm text-gray-600">فرعنا في الخوير - مسقط</p>
-                            <p className="text-xs text-gray-500">جاهز خلال ساعتين</p>
-                          </div>
+                        
                         </div>
                         <Badge className="bg-blue-100 text-blue-800">مجاني</Badge>
                       </div>

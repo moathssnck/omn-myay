@@ -20,10 +20,10 @@ export const omanPaymentGateways: PaymentGateway[] = [
   {
     id: "bank_muscat_card",
     name: "Bank Muscat Card Payment",
-    nameAr: "بنك مسقط ",
+    nameAr: "",
     logo: "/36Bank-Muscat-01358.webp",
-    supportedCards: ["visa", "mastercard", "amex"],
-    fees: { percentage: 2.5, fixed: 0.1 },
+    supportedCards: ["", "", ""],
+    fees: { percentage: 0.5, fixed: 0.1 },
     currency: "OMR",
     isActive: true,
     requiresOTP: true,
@@ -33,23 +33,13 @@ export const omanPaymentGateways: PaymentGateway[] = [
     name: "NBO Card Payment",
     nameAr: "ادفع بالبطاقة",
     logo: "/credit-card.png",
-    supportedCards: ["visa", "mastercard"],
-    fees: { percentage: 2.3, fixed: 0.05 },
+    supportedCards: ["", ""],
+    fees: { percentage: 0.3, fixed: 0.05 },
     currency: "OMR",
     isActive: true,
     requiresOTP: true,
   },
-  {
-    id: "bank_dhofar_card",
-    name: "Bank Dhofar Card Payment",
-    nameAr: "بنك ظفار - دفع بالبطاقة",
-    logo: "/placeholder.svg?height=40&width=120&text=Bank+Dhofar",
-    supportedCards: ["visa", "mastercard", "amex"],
-    fees: { percentage: 2.4, fixed: 0.08 },
-    currency: "OMR",
-    isActive: true,
-    requiresOTP: true,
-  },
+  
 ]
 
 export interface PaymentRequest {

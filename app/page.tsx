@@ -891,7 +891,7 @@ export default function ProfessionalWaterStore() {
                       alt={product.name}
                       width={400}
                       height={400}
-                      className="w-full h-48 md:h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-48 md:h-64 object-contain group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute top-2 md:top-4 right-2 md:right-4 flex space-x-2 space-x-reverse">
                       {product.badge && (
