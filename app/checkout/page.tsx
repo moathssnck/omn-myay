@@ -359,7 +359,7 @@ export default function ProfessionalCheckout() {
                           {subtotal >= 5 ? (
                             <Badge className="bg-green-100 text-green-800">مجاني</Badge>
                           ) : (
-                            <span className="font-bold text-lg">1.500 ر.ع</span>
+                            <span className="font-bold text-lg">0.500 ر.ع</span>
                           )}
                         </div>
                       </div>
