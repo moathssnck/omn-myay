@@ -147,7 +147,7 @@ export default function CartPage() {
                       <div className="flex flex-col md:flex-row gap-6">
                         {/* Product Image */}
                         <div className="relative flex-shrink-0">
-                          <Image
+                          <img
                             src={item.image || "/placeholder.svg"}
                             alt={item.name}
                             width={150}

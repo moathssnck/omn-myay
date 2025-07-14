@@ -9,7 +9,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "مياه عمان الفاخرة - Oman Premium Waters",
   description: "أنقى مياه في سلطنة عمان - Premium natural water from the heart of Oman",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

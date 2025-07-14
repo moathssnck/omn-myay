@@ -685,9 +685,7 @@ export default function ProfessionalWaterStore() {
                   <Droplets className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                    مياه عمان الفاخرة
-                  </h1>
+                 <img src="Asset-2.png" alt=""/>
                   <p className="text-xs md:text-sm text-gray-600 font-medium hidden sm:block">Oman Premium Waters</p>
                 </div>
               </div>
