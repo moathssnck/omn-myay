@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
+import { Progress } from "@/components/ui/progress"
 import {
   ArrowRight,
   Truck,
@@ -24,6 +25,7 @@ import {
   Gift,
   Percent,
   ShoppingCart,
+  AlertCircle,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -32,6 +34,8 @@ import { CardPaymentForm } from "@/components/payment/card-payment-form"
 import { OTPVerification } from "@/components/payment/otp-verification"
 import { PaymentGatewayService, type PaymentRequest } from "@/lib/payment-gateways"
 import { useCart } from "@/contexts/cart-context"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 
 export default function ProfessionalCheckout() {
   const { items: cartItems, getTotalPrice, clearCart } = useCart()
@@ -503,23 +507,55 @@ export default function ProfessionalCheckout() {
       case 4:
         return (
           <div className="space-y-6">
-            {paymentResult?.requiresOTP ? (
-              <OTPVerification
-                transactionId={paymentResult.transactionId}
-                phoneNumber={customerInfo.phone}
-                onVerify={handleOTPVerification}
-                onResend={handleOTPResend}
-                isVerifying={isProcessing}
-                error={otpError}
-              />
-            ) : (
-              <div className="text-center py-8">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle className="w-12 h-12 text-green-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-green-800 mb-4">تم الدفع بنجاح!</h3>
-                <p className="text-green-700">شكراً لك على ثقتك في مياه عمان الفاخرة</p>
-              </div>
+            {/* OTP Dialog */}
+            <Dialog open={paymentResult?.requiresOTP} onOpenChange={() => {}}>
+              <DialogContent className="sm:max-w-md" dir="rtl">
+                <DialogHeader>
+                  <DialogTitle className="text-center text-xl font-bold">تحقق من هويتك</DialogTitle>
+                </DialogHeader>
+
+                {paymentResult?.requiresOTP ? (
+                  <div className="space-y-6">
+                    <OTPVerification
+                      transactionId={paymentResult.transactionId}
+                      phoneNumber={customerInfo.phone}
+                      onVerify={handleOTPVerification}
+                      onResend={handleOTPResend}
+                      isVerifying={isProcessing}
+                      error={otpError}
+                    />
+
+                    {/* Error Alert */}
+                    {otpError && (
+                      <Alert variant="destructive" className="mt-4">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription className="text-right">{otpError}</AlertDescription>
+                      </Alert>
+                    )}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle className="w-12 h-12 text-green-500" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-green-800 mb-4">تم الدفع بنجاح!</h3>
+                    <p className="text-green-700">شكراً لك على ثقتك في مياه عمان الفاخرة</p>
+                  </div>
+                )}
+              </DialogContent>
+            </Dialog>
+
+            {/* Fallback content when dialog is not shown */}
+            {!paymentResult?.requiresOTP && (
+              <Card className="shadow-lg border-0">
+                <CardContent className="p-8 text-center">
+                  <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Shield className="w-12 h-12 text-blue-500" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">جاري معالجة الدفع</h3>
+                  <p className="text-gray-600">يرجى الانتظار...</p>
+                </CardContent>
+              </Card>
             )}
           </div>
         )
@@ -663,6 +699,7 @@ export default function ProfessionalCheckout() {
                   <span className="text-sm font-medium text-blue-600">الخطوة {currentStep} من 5</span>
                   <span className="text-sm text-gray-500">{getStepTitle(currentStep)}</span>
                 </div>
+                <Progress value={(currentStep / 5) * 100} className="h-2" />
               </div>
 
               {/* Desktop Progress */}
@@ -700,6 +737,7 @@ export default function ProfessionalCheckout() {
                 ))}
               </div>
               <div className="hidden md:block">
+                <Progress value={(currentStep / 5) * 100} className="h-2" />
               </div>
             </div>
 
