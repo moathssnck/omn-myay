@@ -27,6 +27,7 @@ import {
   ShoppingCart,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { PaymentSuccess } from "@/components/payment/payment-success"
 import { CardPaymentForm } from "@/components/payment/card-payment-form"
 import { OTPVerification } from "@/components/payment/otp-verification"
@@ -68,7 +69,7 @@ export default function ProfessionalCheckout() {
 
   // Redirect to home if cart is empty
   useEffect(() => {
-    if (cartItems.length === 0 && currentStep === 1) {
+    if (typeof window !== "undefined" && cartItems.length === 0 && currentStep === 1) {
       // Allow some time for cart to load from localStorage
       const timer = setTimeout(() => {
         if (cartItems.length === 0) {
@@ -547,6 +548,45 @@ export default function ProfessionalCheckout() {
     )
   }
 
+  const downloadReceipt = () => {
+    if (typeof window === "undefined") return
+
+    // Generate and download receipt
+    const receiptData = {
+      transactionId: paymentResult.transactionId,
+      amount: paymentResult.amount,
+      currency: paymentResult.currency,
+      gateway: paymentResult.gateway,
+      customerInfo: paymentResult.customerInfo,
+      orderItems: paymentResult.orderItems,
+      date: orderTime,
+    }
+
+    const dataStr = JSON.stringify(receiptData, null, 2)
+    const dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr)
+
+    const exportFileDefaultName = `receipt_${paymentResult.transactionId}.json`
+
+    const linkElement = document.createElement("a")
+    linkElement.setAttribute("href", dataUri)
+    linkElement.setAttribute("download", exportFileDefaultName)
+    linkElement.click()
+  }
+
+  const shareReceipt = async () => {
+    if (typeof window !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: "إيصال الدفع - مياه عمان",
+          text: `تم الدفع بنجاح. رقم المعاملة: ${paymentResult?.transactionId}`,
+          url: window.location.href,
+        })
+      } catch (error) {
+        console.log("Error sharing:", error)
+      }
+    }
+  }
+
   if (currentStep === 5 && paymentResult) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50" dir="rtl">
@@ -577,7 +617,7 @@ export default function ProfessionalCheckout() {
         </header>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <PaymentSuccess {...paymentResult} />
+          <PaymentSuccess {...paymentResult} downloadReceipt={downloadReceipt} shareReceipt={shareReceipt} />
         </div>
       </div>
     )
@@ -705,7 +745,7 @@ export default function ProfessionalCheckout() {
                 <div className="space-y-3 md:space-y-4">
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex items-center space-x-3 space-x-reverse">
-                      <img
+                      <Image
                         src={item.image || "/placeholder.svg"}
                         alt={item.name}
                         width={50}
