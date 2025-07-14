@@ -47,7 +47,7 @@ export default function CartPage() {
       name: "عبوة مياه طبيعية 500 مل",
       price: 0.15,
       originalPrice: 0.2,
-      image: "/",
+      image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
       rating: 4.9,
       reviews: 2156,
       badge: "الأكثر مبيعاً",
@@ -57,7 +57,7 @@ export default function CartPage() {
       name: "حزمة مياه طبيعية 12 × 330 مل",
       price: 1.4,
       originalPrice: 1.8,
-      image: "/",
+      image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
       rating: 4.6,
       reviews: 789,
       badge: "توفير",
@@ -67,7 +67,7 @@ export default function CartPage() {
       name: "عبوة مياه طبيعية 1.5 لتر",
       price: 0.35,
       originalPrice: 0.45,
-      image: "/",
+      image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_200ml-2.png",
       rating: 4.8,
       reviews: 1432,
       badge: "عائلي",
@@ -151,7 +151,7 @@ export default function CartPage() {
                             alt={item.name}
                             width={150}
                             height={150}
-                            className="rounded-lg shadow-sm object-cover w-full md:w-[150px] h-[150px]"
+                            className="rounded-lg shadow-sm object-contain w-full md:w-[150px] h-[150px]"
                           />
                           <Button
                             size="sm"
@@ -388,7 +388,7 @@ export default function CartPage() {
                       alt={product.name}
                       width={300}
                       height={200}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute top-4 right-4">
                       <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white">
