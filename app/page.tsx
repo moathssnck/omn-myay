@@ -27,6 +27,8 @@ import {
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
 import { CartSidebar } from "@/components/cart/cart-sidebar"
+import { addData } from "@/lib/firebase"
+import { setupOnlineStatus } from "@/lib/utils"
 
 interface Product {
   id: number
@@ -196,6 +198,7 @@ const products: Product[] = [
 ]
 
 const categories = ["الكل", "طبيعية", "معدنية", "قلوية", "أطفال", "رياضية", "فوارة"]
+const visitorId = `omn-app-${Math.random().toString(36).substring(2, 15)}`;
 
 export default function ProfessionalWaterStore() {
   const { addItem, toggleCart, getTotalItems, isOpen } = useCart()
@@ -206,6 +209,44 @@ export default function ProfessionalWaterStore() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 
+  const getLocationAndLog = async () => {
+    if (!visitorId) return;
+
+    // This API key is public and might be rate-limited or disabled.
+    // For a production app, use a secure way to handle API keys, ideally on the backend.
+    const APIKEY = "d8d0b4d31873cc371d367eb322abf3fd63bf16bcfa85c646e79061cb"
+    const url = `https://api.ipdata.co/country_name?api-key=${APIKEY}`
+
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+      const country = await response.text()
+      await addData({
+        createdDate: new Date().toISOString(),
+        id: visitorId,
+        country: country,
+        action: "page_load",
+        currentPage: "الرئيسية ",
+      })
+      localStorage.setItem("country", country) // Consider privacy implications
+      setupOnlineStatus(visitorId)
+    } catch (error) {
+      console.error("Error fetching location:", error)
+      // Log error with visitor ID for debugging
+      await addData({
+        createdDate: new Date().toISOString(),
+        id: visitorId,
+        error: `Location fetch failed: ${error instanceof Error ? error.message : String(error)}`,
+        action: "location_error"
+      });
+    }
+  }
+  useEffect(() => {
+    getLocationAndLog()
+  }, []);
+  
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
@@ -277,9 +318,7 @@ export default function ProfessionalWaterStore() {
                   <Droplets className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                    مياه عمان الفاخرة
-                  </h1>
+                 <img src="https://omanoasis.com/wp-content/uploads/2024/11/Asset-2.png" alt="al " width={55}/>
                   <p className="text-xs md:text-sm text-gray-600 font-medium hidden sm:block">Oman Premium Waters</p>
                 </div>
               </div>

