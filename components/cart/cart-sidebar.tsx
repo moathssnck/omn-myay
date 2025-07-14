@@ -79,7 +79,7 @@ export function CartSidebar() {
                   {items.map((item) => (
                     <div key={item.id} className="bg-white border border-gray-100 rounded-lg p-4 shadow-sm">
                       <div className="flex items-start space-x-3 space-x-reverse">
-                        <Image
+                        <img
                           src={item.image || "/placeholder.svg"}
                           alt={item.name}
                           width={60}
