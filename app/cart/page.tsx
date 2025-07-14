@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, ShoppingCart, Plus, Minus, Trash2, Gift, Percent, CheckCircle, Truck, Shield, Droplets, Heart, Star } from 'lucide-react'
-import Image from "next/image"
 import Link from "next/link"
 import { useCart } from "@/contexts/cart-context"
 

@@ -5,7 +5,6 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Shield, CreditCard, Calendar, Lock, AlertCircle, Building2 } from "lucide-react"
@@ -342,23 +341,7 @@ export function CardPaymentForm({ onSubmit, isProcessing }: CardPaymentFormProps
             </div>
 
             {/* Submit Button */}
-            <Button
-              type="submit"
-              disabled={isProcessing}
-              className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-4 rounded-xl shadow-lg text-lg"
-            >
-              {isProcessing ? (
-                <div className="flex items-center space-x-2 space-x-reverse">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>جاري التحقق من البطاقة...</span>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-2 space-x-reverse">
-                  <Shield className="w-5 h-5" />
-                  <span>متابعة الدفع الآمن</span>
-                </div>
-              )}
-            </Button>
+          
           </form>
         </CardContent>
       </Card>

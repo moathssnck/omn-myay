@@ -26,7 +26,6 @@ import {
   AlertCircle,
 } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
 import { PaymentSuccess } from "@/components/payment/payment-success"
 import { CardPaymentForm } from "@/components/payment/card-payment-form"
 import { OTPVerification } from "@/components/payment/otp-verification"

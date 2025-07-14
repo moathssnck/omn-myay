@@ -20,8 +20,8 @@ export const omanPaymentGateways: PaymentGateway[] = [
   {
     id: "bank_muscat_card",
     name: "Bank Muscat Card Payment",
-    nameAr: "بنك مسقط - دفع بالبطاقة",
-    logo: "/placeholder.svg?height=40&width=120&text=Bank+Muscat",
+    nameAr: "بنك مسقط ",
+    logo: "/36Bank-Muscat-01358.webp",
     supportedCards: ["visa", "mastercard", "amex"],
     fees: { percentage: 2.5, fixed: 0.1 },
     currency: "OMR",
@@ -31,8 +31,8 @@ export const omanPaymentGateways: PaymentGateway[] = [
   {
     id: "nbo_card",
     name: "NBO Card Payment",
-    nameAr: "البنك الأهلي العماني - دفع بالبطاقة",
-    logo: "/placeholder.svg?height=40&width=120&text=NBO",
+    nameAr: "ادفع بالبطاقة",
+    logo: "/credit-card.png",
     supportedCards: ["visa", "mastercard"],
     fees: { percentage: 2.3, fixed: 0.05 },
     currency: "OMR",
