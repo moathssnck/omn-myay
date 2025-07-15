@@ -91,6 +91,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 interface CartContextType {
   items: CartItem[]
   isLoaded: boolean
+  isOpen?: boolean
   addItem: (item: Omit<CartItem, "quantity">) => void
   removeItem: (id: number) => void
   updateQuantity: (id: number, quantity: number) => void
