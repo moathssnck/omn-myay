@@ -12,6 +12,8 @@ export interface PaymentGateway {
   currency: string
   isActive: boolean
   requiresOTP: boolean
+  type?:any
+  testMode?:any
 }
 
 export const omanPaymentGateways: PaymentGateway[] = [
