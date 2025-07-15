@@ -39,28 +39,24 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case "ADD_ITEM": {
       const existingItem = state.items.find((item) => item.id === action.payload.id)
-      
       if (existingItem) {
         return {
           ...state,
           items: state.items.map((item) =>
-            item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item
+            item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item,
           ),
         }
       }
-
       return {
         ...state,
         items: [...state.items, { ...action.payload, quantity: 1 }],
       }
     }
-
     case "REMOVE_ITEM":
       return {
         ...state,
         items: state.items.filter((item) => item.id !== action.payload),
       }
-
     case "UPDATE_QUANTITY": {
       if (action.payload.quantity === 0) {
         return {
@@ -68,45 +64,38 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           items: state.items.filter((item) => item.id !== action.payload.id),
         }
       }
-
       return {
         ...state,
         items: state.items.map((item) =>
-          item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item
+          item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item,
         ),
       }
     }
-
     case "CLEAR_CART":
       return {
         ...state,
         items: [],
       }
-
     case "LOAD_CART":
       return {
         ...state,
         items: action.payload,
       }
-
     case "SET_LOADED":
       return {
         ...state,
         isLoaded: action.payload,
       }
-
     case "OPEN_CART":
       return {
         ...state,
         isOpen: true,
       }
-
     case "CLOSE_CART":
       return {
         ...state,
         isOpen: false,
       }
-
     default:
       return state
   }
@@ -122,8 +111,8 @@ interface CartContextType {
   clearCart: () => void
   getTotalItems: () => number
   getTotalPrice: () => number
-  setCartOpen: (val:boolean) => void
-  setCartClose: (val:boolean) => void
+  setCartOpen: () => void
+  setCartClose: () => void
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
