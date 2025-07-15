@@ -1,11 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
-  font-family: "Almarai", sans-serif;
-}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -14,25 +10,20 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
     --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 222.2 84% 4.9%;
     --muted: 210 40% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 40% 96%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent-foreground: 222.2 84% 4.9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 142.1 76.2% 36.3%;
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
   }
 
   .dark {
@@ -42,8 +33,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 10%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -54,129 +45,44 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --ring: 142.4 71.8% 29.2%;
   }
 }
 
-/* Mobile optimizations */
-@layer utilities {
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+@layer base {
+  * {
+    @apply border-border;
   }
-
-  /* Touch-friendly buttons */
-  @media (max-width: 768px) {
-    button {
-      min-height: 44px;
-      min-width: 44px;
-    }
-
-    input,
-    textarea,
-    select {
-      min-height: 44px;
-    }
-  }
-
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Better touch targets */
-  .touch-target {
-    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-/* RTL support improvements */
+/* RTL Support */
 [dir="rtl"] {
-  .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-x-reverse: 1;
-  }
+  text-align: right;
 }
 
-/* Mobile-first responsive design */
-@media (max-width: 640px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .text-responsive {
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
-  }
-
-  .heading-responsive {
-    font-size: clamp(1.5rem, 5vw, 2.25rem);
-  }
+[dir="rtl"] .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
 }
 
-/* Improved mobile navigation */
-@media (max-width: 1024px) {
-  .mobile-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 50;
-  }
-
-  .mobile-menu-content {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 80%;
-    max-width: 400px;
-    background: white;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .mobile-menu-content.open {
-    transform: translateX(0);
-  }
+/* Custom scrollbar for RTL */
+[dir="rtl"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-/* Loading states */
-.loading {
-  @apply animate-pulse bg-gray-200 rounded;
+[dir="rtl"] ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
 }
 
-/* Better focus states for accessibility */
-.focus-visible:focus-visible {
-  @apply outline-2 outline-offset-2 outline-blue-500;
+[dir="rtl"] ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
 }
 
-/* Improved card hover effects on mobile */
-@media (hover: hover) {
-  .card-hover:hover {
-    @apply shadow-xl transform scale-105;
-  }
-}
-
-/* Mobile-optimized spacing */
-@media (max-width: 768px) {
-  .mobile-spacing {
-    @apply px-4 py-3;
-  }
-
-  .mobile-text {
-    @apply text-sm leading-relaxed;
-  }
-
-  .mobile-button {
-    @apply px-6 py-3 text-base;
-  }
+[dir="rtl"] ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
