@@ -97,7 +97,7 @@ export function PaymentGatewaySelector({ selectedGateway, onGatewayChange, amoun
                           <div className="w-12 h-12 bg-white rounded-lg border flex items-center justify-center shadow-sm">
                             {getGatewayIcon(gateway.type)}
                           </div>
-                          <Image
+                          <img
                             src={gateway.logo || "/placeholder.svg"}
                             alt={gateway.name}
                             width={80}

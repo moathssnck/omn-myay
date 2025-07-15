@@ -160,7 +160,7 @@ export function CardPaymentForm({ onSubmit, isProcessing }: CardPaymentFormProps
                 <Label htmlFor={gateway.id} className="flex-1 cursor-pointer">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4 space-x-reverse">
-                      <Image
+                      <img
                         src={gateway.logo || "/placeholder.svg"}
                         alt={gateway.name}
                         width={80}
