@@ -104,7 +104,7 @@ export function OTPVerification({
           disabled={otpCode.length !== 6 || isVerifying}
           className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-3 rounded-xl shadow-lg mb-4"
         >
-          {isVerifying ? (
+          {!isVerifying ? (
             <div className="flex items-center space-x-2 space-x-reverse">
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               <span>جاري التحقق...</span>
