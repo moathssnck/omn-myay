@@ -64,7 +64,7 @@ const products: Product[] = [
     nameEn: "Natural Water 200ml",
     price: 0.08,
     originalPrice: 0.1,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "عبوة صغيرة مثالية للأطفال والرحلات القصيرة",
     detailedDescription:
       "عبوة مياه طبيعية نقية بحجم 200 مل، مثالية للأطفال والاستخدام اليومي. معبأة بأحدث التقنيات للحفاظ على النقاء والطعم الطبيعي.",
@@ -83,7 +83,7 @@ const products: Product[] = [
     nameEn: "Natural Water Pack 30 × 200ml",
     price: 2.2,
     originalPrice: 2.8,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "حزمة اقتصادية تحتوي على 30 عبوة 200 مل",
     detailedDescription:
       "حزمة اقتصادية مثالية للعائلات والمكاتب، تحتوي على 30 عبوة من المياه الطبيعية النقية بحجم 200 مل لكل عبوة.",
@@ -104,7 +104,7 @@ const products: Product[] = [
     nameEn: "Natural Water 330ml",
     price: 0.12,
     originalPrice: 0.15,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "الحجم المثالي للاستخدام اليومي والوجبات",
     detailedDescription:
       "عبوة مياه طبيعية بحجم 330 مل، الحجم المثالي لمرافقة الوجبات والاستخدام اليومي في المكتب أو المدرسة.",
@@ -123,7 +123,7 @@ const products: Product[] = [
     nameEn: "Natural Water Carton 24 × 330ml",
     price: 2.8,
     originalPrice: 3.5,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "كرتون كامل يحتوي على 24 عبوة 330 مل",
     detailedDescription:
       "كرتون كامل يحتوي على 24 عبوة من المياه الطبيعية بحجم 330 مل، مثالي للمكاتب والمناسبات والاستخدام المنزلي.",
@@ -142,7 +142,7 @@ const products: Product[] = [
     nameEn: "Natural Water Pack 12 × 330ml",
     price: 1.4,
     originalPrice: 1.8,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "حزمة متوسطة تحتوي على 12 عبوة 330 مل",
     detailedDescription:
       "حزمة متوسطة الحجم تحتوي على 12 عبوة من المياه الطبيعية بحجم 330 مل، مناسبة للعائلات الصغيرة والاستخدام الأسبوعي.",
@@ -162,7 +162,7 @@ const products: Product[] = [
     nameEn: "Natural Water 500ml",
     price: 0.15,
     originalPrice: 0.2,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "الحجم الكلاسيكي المناسب لجميع الأوقات",
     detailedDescription:
       "عبوة مياه طبيعية بحجم 500 مل، الحجم الكلاسيكي والأكثر شعبية، مناسب للرياضة والعمل والاستخدام اليومي.",
@@ -181,7 +181,7 @@ const products: Product[] = [
     nameEn: "Natural Water Carton 24 × 500ml",
     price: 3.5,
     originalPrice: 4.2,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "كرتون كامل يحتوي على 24 عبوة 500 مل",
     detailedDescription:
       "كرتون كامل يحتوي على 24 عبوة من المياه الطبيعية بحجم 500 مل، الخيار الأمثل للمكاتب والمناسبات الكبيرة.",
@@ -200,7 +200,7 @@ const products: Product[] = [
     nameEn: "Natural Water Pack 12 × 500ml",
     price: 1.8,
     originalPrice: 2.2,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "حزمة عملية تحتوي على 12 عبوة 500 مل",
     detailedDescription:
       "حزمة عملية تحتوي على 12 عبوة من المياه الطبيعية بحجم 500 مل، مثالية للاستخدام المنزلي والرحلات القصيرة.",
@@ -220,7 +220,7 @@ const products: Product[] = [
     nameEn: "Natural Water 1.5L",
     price: 0.35,
     originalPrice: 0.45,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "عبوة كبيرة مثالية للعائلات والاستخدام المنزلي",
     detailedDescription:
       "عبوة مياه طبيعية بحجم 1.5 لتر، مثالية للاستخدام المنزلي والعائلي، توفر كمية كافية لعدة أشخاص.",
@@ -239,7 +239,7 @@ const products: Product[] = [
     nameEn: "Natural Water Carton 12 × 1.5L",
     price: 4.0,
     originalPrice: 5.0,
-    image: "/30-Anniversary-product-line-up_200ml-2.png",
+    image: "https://omanoasis.com/wp-content/uploads/2025/01/30-Anniversary-product-line-up_2-Liter.png",
     description: "كرتون يحتوي على 12 عبوة 1.5 لتر",
     detailedDescription:
       "كرتون يحتوي على 12 عبوة من المياه الطبيعية بحجم 1.5 لتر لكل عبوة، مثالي للعائلات الكبيرة والاستخدام الشهري.",
@@ -582,12 +582,12 @@ export default function ProfessionalWaterStore() {
                   className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-0 shadow-lg"
                 >
                   <div className="relative overflow-hidden">
-                    <Image
+                    <img
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       width={400}
                       height={400}
-                      className="w-full h-48 md:h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-48 md:h-64 object-contain group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute top-2 md:top-4 right-2 md:right-4 flex space-x-2 space-x-reverse">
                       {product.badge && (
