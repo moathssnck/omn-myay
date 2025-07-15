@@ -98,6 +98,7 @@ interface CartContextType {
   clearCart: () => void
   getTotalItems: () => number
   getTotalPrice: () => number
+  setCartOpen?: () => number
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
