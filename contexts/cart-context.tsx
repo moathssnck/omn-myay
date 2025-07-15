@@ -21,7 +21,7 @@ export interface CartItem {
 
 interface CartState {
   items: CartItem[]
-  isOpen: boolean
+  isLoaded: boolean
 }
 
 type CartAction =
@@ -29,9 +29,8 @@ type CartAction =
   | { type: "REMOVE_ITEM"; payload: number }
   | { type: "UPDATE_QUANTITY"; payload: { id: number; quantity: number } }
   | { type: "CLEAR_CART" }
-  | { type: "TOGGLE_CART" }
-  | { type: "SET_CART_OPEN"; payload: boolean }
   | { type: "LOAD_CART"; payload: CartItem[] }
+  | { type: "SET_LOADED"; payload: boolean }
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
@@ -74,20 +73,15 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         ...state,
         items: [],
       }
-    case "TOGGLE_CART":
-      return {
-        ...state,
-        isOpen: !state.isOpen,
-      }
-    case "SET_CART_OPEN":
-      return {
-        ...state,
-        isOpen: action.payload,
-      }
     case "LOAD_CART":
       return {
         ...state,
         items: action.payload,
+      }
+    case "SET_LOADED":
+      return {
+        ...state,
+        isLoaded: action.payload,
       }
     default:
       return state
@@ -96,13 +90,11 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
 interface CartContextType {
   items: CartItem[]
-  isOpen: boolean
+  isLoaded: boolean
   addItem: (item: Omit<CartItem, "quantity">) => void
   removeItem: (id: number) => void
   updateQuantity: (id: number, quantity: number) => void
   clearCart: () => void
-  toggleCart: () => void
-  setCartOpen: (open: boolean) => void
   getTotalItems: () => number
   getTotalPrice: () => number
 }
@@ -120,26 +112,32 @@ export const useCart = () => {
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, {
     items: [],
-    isOpen: false,
+    isLoaded: false,
   })
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem("oman-water-cart")
-    if (savedCart) {
-      try {
-        const cartItems = JSON.parse(savedCart)
-        dispatch({ type: "LOAD_CART", payload: cartItems })
-      } catch (error) {
-        console.error("Error loading cart from localStorage:", error)
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("oman-water-cart")
+      if (savedCart) {
+        try {
+          const cartItems = JSON.parse(savedCart)
+          dispatch({ type: "LOAD_CART", payload: cartItems })
+        } catch (error) {
+          console.error("Error loading cart from localStorage:", error)
+          localStorage.removeItem("oman-water-cart")
+        }
       }
+      dispatch({ type: "SET_LOADED", payload: true })
     }
   }, [])
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("oman-water-cart", JSON.stringify(state.items))
-  }, [state.items])
+    if (state.isLoaded && typeof window !== "undefined") {
+      localStorage.setItem("oman-water-cart", JSON.stringify(state.items))
+    }
+  }, [state.items, state.isLoaded])
 
   const addItem = (item: Omit<CartItem, "quantity">) => {
     dispatch({ type: "ADD_ITEM", payload: item })
@@ -157,14 +155,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     dispatch({ type: "CLEAR_CART" })
   }
 
-  const toggleCart = () => {
-    dispatch({ type: "TOGGLE_CART" })
-  }
-
-  const setCartOpen = (open: boolean) => {
-    dispatch({ type: "SET_CART_OPEN", payload: open })
-  }
-
   const getTotalItems = () => {
     return state.items.reduce((total, item) => total + item.quantity, 0)
   }
@@ -177,13 +167,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     <CartContext.Provider
       value={{
         items: state.items,
-        isOpen: state.isOpen,
+        isLoaded: state.isLoaded,
         addItem,
         removeItem,
         updateQuantity,
         clearCart,
-        toggleCart,
-        setCartOpen,
         getTotalItems,
         getTotalPrice,
       }}
