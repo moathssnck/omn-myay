@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*{
+  font-family: "Cairo", sans-serif;
 
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
