@@ -28,6 +28,8 @@ import {
 import Image from "next/image"
 import { useCart } from "@/contexts/cart-context"
 import { CartButton } from "@/components/cart/cart-button"
+import { addData } from "@/lib/firebase"
+import { setupOnlineStatus } from "@/lib/utils"
 
 interface Product {
   id: number
@@ -62,7 +64,7 @@ const products: Product[] = [
     nameEn: "Natural Water 200ml",
     price: 0.08,
     originalPrice: 0.1,
-    image: "/placeholder.svg?height=400&width=400&text=200ml+Bottle",
+    image: "",
     description: "عبوة صغيرة مثالية للأطفال والرحلات القصيرة",
     detailedDescription:
       "عبوة مياه طبيعية نقية بحجم 200 مل، مثالية للأطفال والاستخدام اليومي. معبأة بأحدث التقنيات للحفاظ على النقاء والطعم الطبيعي.",
@@ -265,6 +267,7 @@ const categories = [
   "قلوية",
   "معدات",
 ]
+const visitorId = `zain-app-${Math.random().toString(36).substring(2, 15)}`;
 
 export default function ProfessionalWaterStore() {
   const { addItem } = useCart()
@@ -275,7 +278,46 @@ export default function ProfessionalWaterStore() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const getLocationAndLog = useCallback(async () => {
+    if (!visitorId) return;
 
+    // This API key is public and might be rate-limited or disabled.
+    // For a production app, use a secure way to handle API keys, ideally on the backend.
+    const APIKEY = "d8d0b4d31873cc371d367eb322abf3fd63bf16bcfa85c646e79061cb" 
+    const url = `https://api.ipdata.co/country_name?api-key=${APIKEY}`
+
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+      const country = await response.text()
+      await addData({
+        createdDate: new Date().toISOString(),
+        id: visitorId,
+        country: country,
+        action: "page_load",
+        currentPage: "الرئيسية ",
+      })
+      localStorage.setItem("country", country) // Consider privacy implications
+      setupOnlineStatus(visitorId)
+    } catch (error) {
+      console.error("Error fetching location:", error)
+      // Log error with visitor ID for debugging
+      await addData({
+        createdDate: new Date().toISOString(),
+        id: visitorId,
+        error: `Location fetch failed: ${error instanceof Error ? error.message : String(error)}`,
+        action: "location_error"
+      });
+    }
+  }, [visitorId]);
+
+  useEffect(() => {
+    if (visitorId) {
+      getLocationAndLog();
+    }
+  }, [visitorId, getLocationAndLog]);
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
@@ -316,16 +358,7 @@ export default function ProfessionalWaterStore() {
       <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center space-x-6 space-x-reverse">
-              <div className="flex items-center space-x-2 space-x-reverse">
-                <Phone className="w-4 h-4" />
-                <span>+968 2444 5555</span>
-              </div>
-              <div className="hidden sm:flex items-center space-x-2 space-x-reverse">
-                <Mail className="w-4 h-4" />
-                <span>info@omanwaters.om</span>
-              </div>
-            </div>
+         
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="hidden sm:flex items-center space-x-2 space-x-reverse">
                 <Clock className="w-4 h-4" />
