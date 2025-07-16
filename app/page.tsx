@@ -60,6 +60,26 @@ const products: Product[] = [
   // 200ml Products
   {
     id: 1,
+    name: "عرض خاص ° 20 كرتون مياة واحصل على براد هدية",
+    nameEn: "Natural Water 200ml",
+    price: 6.08,
+    originalPrice: 5.1,
+    image: "me.png",
+    description:    "عرض خاص ° 20 كرتون مياة واحصل على براد هدية",
+
+    detailedDescription:
+      "عبوة مياه طبيعية نقية بحجم 200 مل، مثالية للأطفال والاستخدام اليومي. معبأة بأحدث التقنيات للحفاظ على النقاء والطعم الطبيعي.",
+    rating: 4.8,
+    reviews: 856,
+    badge: "عرض خاص ",
+    size: "200 مل",
+    category: "عبوات صغيرة",
+    inStock: 1000,
+    features: ["حجم مناسب للأطفال", "سهل الحمل", "طبيعية 100%", "معتمدة صحياً"],
+    nutritionFacts: { ph: "7.2", minerals: "120 mg/L", sodium: "< 3 mg/L", calcium: "35 mg/L" },
+  },
+  {
+    id: 1,
     name: "عبوة مياه طبيعية 200 مل",
     nameEn: "Natural Water 200ml",
     price: 0.08,
