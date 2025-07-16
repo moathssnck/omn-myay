@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { useCart } from "@/contexts/cart-context"
 import { Star, ShoppingCart, Heart } from "lucide-react"
 
 interface Product {
@@ -36,7 +37,9 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const discountPercentage = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0
+    : 0;
+
+const {addItem} =useCart()
 
   return (
     <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white border-0 shadow-lg">
@@ -140,6 +143,10 @@ export function ProductCard({ product }: ProductCardProps) {
           <Button
             className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 transition-all duration-300 group-hover:shadow-lg"
             disabled={product.inStock === 0}
+            onClick={()=>
+              {
+                addItem(product as any)
+                window.location.href="/cart"}}
           >
             <ShoppingCart className="h-4 w-4 mr-2" />
             {product.inStock === 0 ? "غير متوفر" : "أضف للسلة"}

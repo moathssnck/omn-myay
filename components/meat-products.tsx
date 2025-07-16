@@ -156,24 +156,9 @@ export default function MeatProducts() {
     <div className="min-h-screen bg-gray-50">
       <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
-      <StatsSection />
 
       <div className="container mx-auto px-4 pb-16">
-        <CategoryFilter
-          categories={categories}
-          activeCategory={activeCategory}
-          onCategoryChange={setActiveCategory}
-          productCounts={productCounts}
-        />
-
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            {activeCategory === "الكل" ? "جميع المنتجات" : activeCategory}
-          </h2>
-          <p className="text-gray-600">
-            عرض {filteredProducts.length} من أصل {products.length} منتج
-          </p>
-        </div>
+   
 
         {filteredProducts.length === 0 ? (
           <div className="text-center py-16">
@@ -189,6 +174,8 @@ export default function MeatProducts() {
           </div>
         )}
       </div>
+      <StatsSection />
+
     </div>
   )
 }
