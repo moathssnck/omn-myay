@@ -6,8 +6,8 @@ import { CartProvider } from "@/contexts/cart-context"
 
 
 export const metadata: Metadata = {
-  title: "مياه عمان الفاخرة - Oman Premium Waters",
-  description: "أنقى مياه في سلطنة عمان - Premium natural water from the heart of Oman",
+  title: "متجر >بيحتي",
+  description: "premium e-commerce platform  ",
 }
 
 export default function RootLayout({
