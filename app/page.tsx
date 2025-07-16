@@ -62,9 +62,9 @@ const products: Product[] = [
     id: 1,
     name: "عرض خاص ° 20 كرتون مياة واحصل على براد هدية",
     nameEn: "Natural Water 200ml",
-    price: 6.08,
-    originalPrice: 5.1,
-    image: "me.png",
+    price: 26.00,
+    originalPrice: 20.00,
+    image: "https://i.ibb.co/gLjTPcx3/20.png",
     description:    "عرض خاص ° 20 كرتون مياة واحصل على براد هدية",
 
     detailedDescription:
