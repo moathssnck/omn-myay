@@ -1,163 +1,148 @@
 "use client"
 
-import Link from "next/link"
-import { Star, ShoppingCart, Heart } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { useCart } from "@/hooks/use-cart"
-import { toast } from "@/hooks/use-toast"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Star, ShoppingCart, Heart } from "lucide-react"
 
 interface Product {
-  id: string
+  id: number
   name: string
+  nameEn: string
   price: number
   originalPrice?: number
   image: string
-  category: string
+  description: string
+  detailedDescription: string
   rating: number
   reviews: number
-  inStock: boolean
-  description: string
+  badge?: string
+  weight: string
+  category: string
+  inStock: number
+  features: string[]
+  nutritionFacts?: {
+    protein: string
+    fat: string
+    calories: string
+    cholesterol: string
+  }
 }
 
 interface ProductCardProps {
   product: Product
-  viewMode?: "grid" | "list"
 }
 
-export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
-  const { addItem } = useCart()
-
-  const handleAddToCart = () => {
-    addItem({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      quantity: 1,
-    })
-    toast({
-      title: "تم إضافة المنتج",
-      description: `تم إضافة ${product.name} إلى السلة`,
-    })
-  }
-
-  const discount = product.originalPrice
+export function ProductCard({ product }: ProductCardProps) {
+  const discountPercentage = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0
 
-  if (viewMode === "list") {
-    return (
-      <Card className="hover:shadow-lg transition-shadow">
-        <CardContent className="p-0">
-          <div className="flex">
-            <div className="relative w-48 h-48">
-              <img
-                src={product.image || "/placeholder.svg"}
-                alt={product.name}
-                className="w-full h-full object-cover rounded-r-lg"
-              />
-              {discount > 0 && <Badge className="absolute top-2 right-2 bg-red-500">-{discount}%</Badge>}
-            </div>
-            <div className="flex-1 p-6">
-              <div className="flex justify-between items-start mb-2">
-                <Link href={`/products/${product.id}`}>
-                  <h3 className="text-xl font-semibold text-gray-900 hover:text-green-600 transition-colors">
-                    {product.name}
-                  </h3>
-                </Link>
-                <Button variant="ghost" size="icon">
-                  <Heart className="h-5 w-5" />
-                </Button>
-              </div>
-
-              <p className="text-gray-600 mb-3">{product.description}</p>
-
-              <div className="flex items-center mb-3">
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-4 h-4 ${
-                        i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-sm text-gray-500 mr-2">({product.reviews} تقييم)</span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2 space-x-reverse">
-                  <span className="text-2xl font-bold text-green-600">{product.price} ر.س</span>
-                  {product.originalPrice && (
-                    <span className="text-lg text-gray-500 line-through">{product.originalPrice} ر.س</span>
-                  )}
-                </div>
-
-                <Button onClick={handleAddToCart} disabled={!product.inStock}>
-                  <ShoppingCart className="w-4 h-4 ml-2" />
-                  أضف للسلة
-                </Button>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }
-
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300">
-      <CardContent className="p-0">
-        <div className="relative">
-          <img
-            src={product.image || "/placeholder.svg"}
-            alt={product.name}
-            className="w-full h-48 object-cover rounded-t-lg"
-          />
-          {discount > 0 && <Badge className="absolute top-2 right-2 bg-red-500">-{discount}%</Badge>}
-          <Button variant="ghost" size="icon" className="absolute top-2 left-2 bg-white/80 hover:bg-white">
-            <Heart className="h-4 w-4" />
-          </Button>
+    <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white border-0 shadow-lg">
+      <div className="relative overflow-hidden">
+        <img
+          src={product.image || "/placeholder.svg"}
+          alt={product.name}
+          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Badges */}
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
+          {product.badge && (
+            <Badge className="bg-red-500 hover:bg-red-600 text-white font-medium px-3 py-1">{product.badge}</Badge>
+          )}
+          {discountPercentage > 0 && (
+            <Badge className="bg-green-500 hover:bg-green-600 text-white font-medium px-2 py-1">
+              -{discountPercentage}%
+            </Badge>
+          )}
         </div>
 
-        <div className="p-4">
-          <Link href={`/products/${product.id}`}>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
+        {/* Wishlist button */}
+        <Button
+          size="icon"
+          variant="secondary"
+          className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/90 hover:bg-white"
+        >
+          <Heart className="h-4 w-4" />
+        </Button>
+
+        {/* Stock indicator */}
+        <div className="absolute bottom-3 left-3">
+          <Badge
+            variant={product.inStock > 50 ? "default" : product.inStock > 10 ? "secondary" : "destructive"}
+            className="text-xs"
+          >
+            {product.inStock > 50 ? "متوفر" : product.inStock > 10 ? "كمية محدودة" : "آخر القطع"}
+          </Badge>
+        </div>
+      </div>
+
+      <CardContent className="p-6">
+        <div className="space-y-4">
+          {/* Product name and category */}
+          <div>
+            <h3 className="font-bold text-lg text-gray-900 line-clamp-2 mb-1 group-hover:text-red-600 transition-colors">
               {product.name}
             </h3>
-          </Link>
+            <p className="text-sm text-gray-500 font-medium">{product.category}</p>
+          </div>
 
-          <p className="text-gray-600 text-sm mb-3">{product.description}</p>
+          {/* Description */}
+          <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">{product.description}</p>
 
-          <div className="flex items-center mb-3">
+          {/* Rating */}
+          <div className="flex items-center gap-2">
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className={`w-4 h-4 ${
+                  className={`h-4 w-4 ${
                     i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
                   }`}
                 />
               ))}
             </div>
-            <span className="text-sm text-gray-500 mr-2">({product.reviews})</span>
+            <span className="text-sm font-medium text-gray-700">{product.rating}</span>
+            <span className="text-sm text-gray-500">({product.reviews})</span>
           </div>
 
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-2 space-x-reverse">
-              <span className="text-xl font-bold text-green-600">{product.price} ر.س</span>
+          {/* Weight and features */}
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full">
+              {product.weight}
+            </span>
+            <div className="flex gap-1">
+              {product.features.slice(0, 2).map((feature, index) => (
+                <Badge key={index} variant="outline" className="text-xs">
+                  {feature}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Pricing */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-bold text-green-600">{product.price.toFixed(2)}</span>
+              <span className="text-sm text-gray-500">ر.ع</span>
               {product.originalPrice && (
-                <span className="text-sm text-gray-500 line-through">{product.originalPrice} ر.س</span>
+                <span className="text-sm text-gray-400 line-through">{product.originalPrice.toFixed(2)} ر.ع</span>
               )}
             </div>
           </div>
 
-          <Button onClick={handleAddToCart} className="w-full" disabled={!product.inStock}>
-            <ShoppingCart className="w-4 h-4 ml-2" />
-            أضف للسلة
+          {/* Add to cart button */}
+          <Button
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 transition-all duration-300 group-hover:shadow-lg"
+            disabled={product.inStock === 0}
+          >
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            {product.inStock === 0 ? "غير متوفر" : "أضف للسلة"}
           </Button>
         </div>
       </CardContent>
