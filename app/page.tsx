@@ -518,21 +518,7 @@ export default function ProfessionalWaterStore() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl shadow-lg w-full sm:w-auto"
-            >
-              تسوق الآن
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl bg-transparent w-full sm:w-auto"
-            >
-              اعرف المزيد
-            </Button>
-          </div>
+         
         </div>
       </section>
 
@@ -691,7 +677,10 @@ export default function ProfessionalWaterStore() {
                         )}
                       </div>
                       <Button
-                        onClick={() => handleAddToCart(product)}
+                        onClick={() =>{ 
+                          handleAddToCart(product)
+                          window.location.href="/cart"
+                        }}
                         className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold px-4 md:px-6 py-2 rounded-lg shadow-lg w-full sm:w-auto"
                         size="sm"
                       >
