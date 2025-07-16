@@ -227,7 +227,7 @@ export default function CheckoutPage() {
 
                   
                 
-                  <Button onClick={handleAddressSubmit} className="w-full" disabled={isLoading}>
+                  <Button onClick={handleAddressSubmit} className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white" disabled={isLoading}>
                     {isLoading ? "جاري المعالجة..." : "متابعة إلى الدفع"}
                   </Button>
                 </CardContent>
@@ -308,7 +308,7 @@ export default function CheckoutPage() {
                     <Button variant="outline" onClick={() => setCurrentStep("address")} className="flex-1">
                       رجوع
                     </Button>
-                    <Button onClick={handlePaymentSubmit} className="flex-1" disabled={isLoading}>
+                    <Button onClick={handlePaymentSubmit} className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white" disabled={isLoading}>
                       {isLoading ? "جاري المعالجة..." : "تأكيد الدفع"}
                     </Button>
                   </div>
@@ -358,7 +358,7 @@ export default function CheckoutPage() {
                     <Button variant="outline" onClick={() => setCurrentStep("payment")} className="flex-1">
                       رجوع
                     </Button>
-                    <Button onClick={handleOtpSubmit} className="flex-1" disabled={isLoading || otp.length !== 6}>
+                    <Button onClick={handleOtpSubmit} className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white" disabled={isLoading || otp.length !== 6}>
                       {isLoading ? "جاري التحقق..." : "تأكيد"}
                     </Button>
                   </div>
