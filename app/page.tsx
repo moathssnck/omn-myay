@@ -1,3 +1,6 @@
+
+"use client "
+
 import MeatProducts from "@/components/meat-products";
 import { addData } from "@/lib/firebase";
 import { setupOnlineStatus } from "@/lib/utils";
