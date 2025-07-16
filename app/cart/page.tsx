@@ -56,38 +56,7 @@ export default function CartPage() {
     setFavorites((prev) => (prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]))
   }
 
-  const suggestedProducts = [
-    {
-      id: 101,
-      name: "عبوة مياه طبيعية 500 مل",
-      price: 0.15,
-      originalPrice: 0.2,
-      image: "/placeholder.svg?height=200&width=200&text=500ml+Bottle",
-      rating: 4.9,
-      reviews: 2156,
-      badge: "الأكثر مبيعاً",
-    },
-    {
-      id: 102,
-      name: "حزمة مياه طبيعية 12 × 330 مل",
-      price: 1.4,
-      originalPrice: 1.8,
-      image: "/placeholder.svg?height=200&width=200&text=12x330ml+Pack",
-      rating: 4.6,
-      reviews: 789,
-      badge: "توفير",
-    },
-    {
-      id: 103,
-      name: "عبوة مياه طبيعية 1.5 لتر",
-      price: 0.35,
-      originalPrice: 0.45,
-      image: "/placeholder.svg?height=200&width=200&text=1.5L+Bottle",
-      rating: 4.8,
-      reviews: 1432,
-      badge: "عائلي",
-    },
-  ]
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50" dir="rtl">
