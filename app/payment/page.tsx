@@ -21,7 +21,6 @@ export default function PaymentPage() {
       router.push("/cart")
       return
     }
-
     setOrderId(orderIdParam)
     setAmount(Number.parseFloat(amountParam))
   }, [searchParams, router])

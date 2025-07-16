@@ -108,9 +108,7 @@ export default function CartPage() {
                 <Droplets className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
               <div>
-                <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                  مياه عمان الفاخرة
-                </h1>
+            <img src="https://omanoasis.com/wp-content/uploads/2024/11/Asset-2.png" alt="lkog" width={55}/>
                 <p className="text-xs md:text-sm text-gray-600">سلة التسوق</p>
               </div>
             </div>
@@ -379,68 +377,6 @@ export default function CartPage() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        )}
-
-        {/* Suggested Products */}
-        {items.length > 0 && (
-          <div className="mt-16">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">منتجات قد تعجبك</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {suggestedProducts.map((product) => (
-                <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.name}
-                      width={300}
-                      height={200}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white">{product.badge}</Badge>
-                    </div>
-                  </div>
-                  <CardContent className="p-4">
-                    <h4 className="font-bold text-lg mb-2 group-hover:text-blue-600 transition-colors">
-                      {product.name}
-                    </h4>
-                    <div className="flex items-center space-x-2 space-x-reverse mb-3">
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${
-                              i < Math.floor(product.rating) ? "text-yellow-400 fill-current" : "text-gray-300"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <span className="text-sm text-gray-600">
-                        {product.rating} ({product.reviews})
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center space-x-2 space-x-reverse">
-                        <span className="text-xl font-bold text-blue-600">{product.price.toFixed(3)} ر.ع</span>
-                        {product.originalPrice && (
-                          <span className="text-sm text-gray-500 line-through">
-                            {product.originalPrice.toFixed(3)} ر.ع
-                          </span>
-                        )}
-                      </div>
-                      <Button
-                        size="sm"
-                        className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
-                      >
-                        <Plus className="w-4 h-4 ml-1" />
-                        إضافة
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
             </div>
           </div>
         )}

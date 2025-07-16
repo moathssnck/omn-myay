@@ -380,7 +380,7 @@ export default function ProfessionalWaterStore() {
                   <Droplets className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
                 <div>
-                <img src="/Asset-2.png" alt="" width={65}/>
+                <img src="https://omanoasis.com/wp-content/uploads/2024/11/Asset-2.png" alt="" width={65}/>
                   <p className="text-xs md:text-sm text-gray-600 font-medium hidden sm:block">Oman Premium Waters</p>
                 </div>
               </div>
@@ -529,7 +529,6 @@ export default function ProfessionalWaterStore() {
               تصفية المنتجات
             </Button>
           </div>
-
           {/* Filters Sidebar */}
           <div className={`w-full lg:w-80 space-y-6 ${isFiltersOpen ? "block" : "hidden lg:block"}`}>
             <Card className="shadow-lg border-0">
