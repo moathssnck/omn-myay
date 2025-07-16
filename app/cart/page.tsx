@@ -72,15 +72,7 @@ export default function CartPage() {
               <span className="text-base md:text-lg font-medium text-gray-700">العودة للمتجر</span>
             </Link>
 
-            <div className="flex items-center space-x-3 space-x-reverse md:space-x-4">
-              <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-lg">
-                <Droplets className="w-6 h-6 md:w-8 md:h-8 text-white" />
-              </div>
-              <div>
-            <img src="https://omanoasis.com/wp-content/uploads/2024/11/Asset-2.png" alt="lkog" width={55}/>
-                <p className="text-xs md:text-sm text-gray-600">سلة التسوق</p>
-              </div>
-            </div>
+            
           </div>
         </div>
       </header>
