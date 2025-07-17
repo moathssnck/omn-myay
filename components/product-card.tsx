@@ -102,34 +102,12 @@ const {addItem} =useCart()
           {/* Description */}
           <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">{product.description}</p>
 
-          {/* Rating */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`h-4 w-4 ${
-                    i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="text-sm font-medium text-gray-700">{product.rating}</span>
-            <span className="text-sm text-gray-500">({product.reviews})</span>
-          </div>
-
+         
           {/* Weight and features */}
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full">
               {product.weight}
             </span>
-            <div className="flex gap-1">
-              {product.features.slice(0, 2).map((feature, index) => (
-                <Badge key={index} variant="outline" className="text-xs">
-                  {feature}
-                </Badge>
-              ))}
-            </div>
           </div>
 
           {/* Pricing */}
