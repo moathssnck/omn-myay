@@ -42,7 +42,11 @@ export function ProductCard({ product }: ProductCardProps) {
 const {addItem} =useCart()
 
   return (
-    <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white border-0 shadow-lg">
+    <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-white border-0 shadow-lg"
+    onClick={()=>
+      {
+        addItem(product as any)
+        window.location.href="/cart"}}>
       <div className="relative overflow-hidden">
         <img
           src={product.image || "/placeholder.svg"}
@@ -143,10 +147,7 @@ const {addItem} =useCart()
           <Button
             className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 transition-all duration-300 group-hover:shadow-lg"
             disabled={product.inStock === 0}
-            onClick={()=>
-              {
-                addItem(product as any)
-                window.location.href="/cart"}}
+         
           >
             <ShoppingCart className="h-4 w-4 mr-2" />
             {product.inStock === 0 ? "غير متوفر" : "أضف للسلة"}
